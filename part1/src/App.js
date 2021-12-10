@@ -20,15 +20,30 @@ const Button = (prop) =>{
   )
 }
 
+const Statistics = (props) =>{
+  const header = 'Statistics'
+  const {good, bad, neutral, totalClicks, scoreCard} = props
+  console.log(props)
+  return (     
+    <div>
+      <Header header={header}/>     
+      <p>Good: {good}</p>
+      <p>Bad: {bad}</p>
+      <p>Neutral:{neutral}</p>
+      <p>All: {totalClicks}</p>
+      <p>average: {scoreCard/totalClicks}</p>
+      <p>positive: {good/totalClicks} %</p>    
+    </div>
+  )
+}
+
 const App = () => {
  const header = 'Give Feedback'
- const body = 'Statistics'
+
   const [goodClicks, setGood] = useState(0)
   const [badClicks, setBad] = useState(0)
   const [neutralClicks, setNeutral] = useState(0)
   const [allClicks, setAll] = useState([])
-
-  console.log(allClicks)
 
 const handleGoodClicks =() => {
   setAll(allClicks.concat(1))
@@ -51,23 +66,17 @@ if(allClicks.length >0){
   console.log(scoreCard)
 }
 
-const totalClicks = allClicks.length
-console.log(totalClicks)
+
   return (
     <div>
      <Header header= {header}/>
      <Button name='Good' handleClicks = {handleGoodClicks}/>
      <Button name='Neutral' handleClicks ={handleNeutralClicks}/>
      <Button name='Bad' handleClicks={handleBadClicks}/>     
-     <Header header={body}/>
-     <p>Good: {goodClicks}</p>
-     <p>Bad: {badClicks}</p>
-     <p>Neutral:{neutralClicks}</p>
-     <p>All: {totalClicks}</p>
-     <p>average: {scoreCard/totalClicks}</p>
-     <p>positive: {goodClicks/totalClicks} %</p>
+     <Statistics good={goodClicks} bad={badClicks} neutral={neutralClicks} scoreCard={scoreCard} totalClicks={allClicks.length} />    
     </div>  
   )
+  
 }
 
 export default App;
