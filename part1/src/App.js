@@ -22,17 +22,27 @@ const Button = (prop) =>{
 
 const Statistics = (props) =>{
   const header = 'Statistics'
-  const {good, bad, neutral, totalClicks, scoreCard} = props
-  console.log(props)
-  return (     
+  const {good, bad, neutral, totalClicks, scoreCard} = props  
+
+  if(totalClicks>0)
+  //Only return if any feedback has been recorded
+    return (     
+      <div>
+        <Header header={header}/>     
+        <p>Good: {good}</p>
+        <p>Bad: {bad}</p>
+        <p>Neutral:{neutral}</p>
+        <p>All: {totalClicks}</p>
+        <p>average: {scoreCard/totalClicks}</p>
+        <p>positive: {(good/totalClicks)*100} %</p>    
+      </div>
+  )
+  return (
     <div>
-      <Header header={header}/>     
-      <p>Good: {good}</p>
-      <p>Bad: {bad}</p>
-      <p>Neutral:{neutral}</p>
-      <p>All: {totalClicks}</p>
-      <p>average: {scoreCard/totalClicks}</p>
-      <p>positive: {good/totalClicks} %</p>    
+       <Header header={header}/>     
+      <h3>
+        No Feedback available!
+      </h3> 
     </div>
   )
 }
@@ -63,9 +73,7 @@ const handleNeutralClicks =() => {
 let scoreCard
 if(allClicks.length >0){
   scoreCard = allClicks.reduce((acc, cur) => acc + cur)
-  console.log(scoreCard)
 }
-
 
   return (
     <div>
