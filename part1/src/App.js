@@ -1,76 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 // const exercises = [10, 7, 14]
 // const parts = ["Fundamentals of React :", "Using props to pass data :", "State of a component :"]
 const Header = (prop) =>{
  
-  const header = prop.course
+  const header = prop.header
   return (  
     <div>
-      <p>
-        {header.name}
-      </p>  
+      <h1>
+        {header}
+      </h1>  
     </div>
   )
 }
 
-const Content = (prop) =>{
-  const course = prop.part.parts; 
-  const content = course.map((item, index) => 
-    <li key={index}>
-      {item.name} : {item.exercises}
-    </li>)
-
-  return ( 
-    <div>      
-      {content}      
-    </div>   
-  )
-}
-
-const Total = (prop) =>{
-  
-  const total = prop.total.parts;   
-  const exercises = total.map(item => item.exercises);
-  const totalExercises = exercises.reduce((acc, cur) => {
-    return acc + cur;
-  });
- 
+const Button = (prop) =>{
   return(
-    <div>
-      <p key = {'totalExercises'}> 
-        Number of Exercises : {totalExercises}
-      </p>
-    </div>
+    <button onClick={prop.handleClicks}>{prop.name}</button>
   )
 }
 
 const App = () => {
-  const course ={
+ const header = 'Give Feedback'
+ const body = 'Statistics'
+  const [goodClicks, setGood] = useState(0)
+  const [badClicks, setBad] = useState(0)
+  const [neutralClicks, setNeutral] = useState(0)
 
-   name: "Half stack application development",
+  
+const handleGoodClicks =() => {
+  setGood(goodClicks+1)
+}
 
-   parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10
-      }, 
-      {
-        name:"Using props to pass data",
-        exercises: 7
-      },
-      {
-        name:"State of a component",
-        exercises: 14
-      }
-     ]
-  }
+const handleBadClicks =() => {
+  setBad(badClicks+1)
+}
+
+const handleNeutralClicks =() => {
+  setNeutral(neutralClicks+1)
+}
 
   return (
     <div>
-      <Header course={course}/>
-      <Content part ={course}/>       
-      <Total total = {course}/>    
+     <Header header= {header}/>
+     <Button name='Good' handleClicks = {handleGoodClicks}/>
+     <Button name='Neutral' handleClicks ={handleNeutralClicks}/>
+     <Button name='Bad' handleClicks={handleBadClicks}/>     
+     <Header header={body}/>
+     <p>Good: {goodClicks}</p>
+     <p>Bad: {badClicks}</p>
+     <p>Neutral:{neutralClicks}</p>
     </div>  
   )
 }
