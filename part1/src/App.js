@@ -1,102 +1,40 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
 
-// const exercises = [10, 7, 14]
-// const parts = ["Fundamentals of React :", "Using props to pass data :", "State of a component :"]
-const Header = (prop) =>{
- 
-  const header = prop.header
-  return (  
-    <div>
-      <h1>
-        {header}
-      </h1>  
-    </div>
-  )
-}
 
-const Button = (prop) =>{
-  return(
-    <button onClick={prop.handleClicks}>{prop.name}</button>
-  )
-}
-
-const StatisticLine = (props) =>{
-  return (
-    <tbody>
-      <tr>
-        <td>{props.name}</td>
-        <td>{props.value}</td>
-      </tr>    
-    </tbody>
-  )
-}
-
-const Statistics = (props) => {
-  const {goodClicks, badClicks, neutralClicks, totalClicks, scoreCard} = props
-  const header = 'Statistics'
-  if(totalClicks>0)
-    return (
-      <div>
-        <Header header ={header}/>
-        <table style = {{margin:10}}>
-        <StatisticLine name='Good' value={goodClicks}/>
-        <StatisticLine name='Bad' value={badClicks}/>
-        <StatisticLine name='Neutral' value={neutralClicks}/>
-        <StatisticLine name='All' value={totalClicks}/>
-        <StatisticLine name='Average' value={scoreCard/totalClicks}/>
-        <StatisticLine name='Positive' value={(goodClicks/totalClicks)*100 +'%'}/>
-        </table>
-      </div>
-    )
-  
-  return(
-        <div>
-          <Header header={header}/>
-          <h3>
-            No Feedback recieved!
-          </h3>
-        </div>
-      )
-  }
 
 const App = () => {
- const header = 'Give Feedback'
+  const anecdotes = [
+    'If it hurts, do it more often',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
+  ]
+   const voteArray = [0,0,0,0,0,0,0]
+   const max = anecdotes.length
+  const [selected, setSelected] = useState(0)
+  const [clicked, setClick] = useState([])
+console.log(selected)
+  const selectNumber = () =>{
+    const randomNumber = Math.floor(Math.random()*max)    
+    setSelected(randomNumber)      
+  }
 
-  const [goodClicks, setGood] = useState(0)
-  const [badClicks, setBad] = useState(0)
-  const [neutralClicks, setNeutral] = useState(0)
-  const [allClicks, setAll] = useState([])
-
-const handleGoodClicks =() => {
-  setAll(allClicks.concat(1))
-  setGood(goodClicks + 1)
-}
-
-const handleBadClicks =() => {
-  setAll(allClicks.concat(-1))
-  setBad(badClicks+1)
-}
-
-const handleNeutralClicks =() => {
-  setNeutral(neutralClicks+1)
-  setAll(allClicks.concat(0))
-}
-
-let scoreCard
-if(allClicks.length >0){
-  scoreCard = allClicks.reduce((acc, cur) => acc + cur)
-}
-
-  return (
-    <div>
-     <Header header= {header}/>
-     <Button name='Good' handleClicks = {handleGoodClicks}/>
-     <Button name='Neutral' handleClicks ={handleNeutralClicks}/>
-     <Button name='Bad' handleClicks={handleBadClicks}/>     
-     <Statistics goodClicks={goodClicks} badClicks={badClicks} neutralClicks={neutralClicks} totalClicks={allClicks.length} scoreCard={scoreCard} />    
-    </div>  
-  )
+  const voteFunction = () =>{
   
+  }
+  
+  
+  return (
+    <div>         
+        <button onClick={selectNumber}> next anecdote </button> 
+      <h4>
+        {anecdotes[selected]} 
+      </h4>                 
+    </div>    
+  )
 }
 
-export default App;
+export default App
