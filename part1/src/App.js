@@ -20,32 +20,39 @@ const Button = (prop) =>{
   )
 }
 
-const Statistics = (props) =>{
-  const header = 'Statistics'
-  const {good, bad, neutral, totalClicks, scoreCard} = props  
-
-  if(totalClicks>0)
-  //Only return if any feedback has been recorded
-    return (     
-      <div>
-        <Header header={header}/>     
-        <p>Good: {good}</p>
-        <p>Bad: {bad}</p>
-        <p>Neutral:{neutral}</p>
-        <p>All: {totalClicks}</p>
-        <p>average: {scoreCard/totalClicks}</p>
-        <p>positive: {(good/totalClicks)*100} %</p>    
-      </div>
-  )
+const StatisticLine = (props) =>{
   return (
     <div>
-       <Header header={header}/>     
-      <h3>
-        No Feedback available!
-      </h3> 
+      <p>{props.name} : {props.value}</p>
     </div>
   )
 }
+
+const Statistics = (props) => {
+  const {goodClicks, badClicks, neutralClicks, totalClicks, scoreCard} = props
+  const header = 'Statistics'
+  if(totalClicks>0)
+    return (
+      <div>
+        <Header header ={header}/>
+        <StatisticLine name='Good' value={goodClicks}/>
+        <StatisticLine name='Bad' value={badClicks}/>
+        <StatisticLine name='Neutral' value={neutralClicks}/>
+        <StatisticLine name='All' value={totalClicks}/>
+        <StatisticLine name='Average' value={scoreCard/totalClicks}/>
+        <StatisticLine name='Positive' value={(goodClicks/totalClicks)*100 +'%'}/>
+      </div>
+    )
+  
+  return(
+        <div>
+          <Header header={header}/>
+          <h3>
+            No Feedback recieved!
+          </h3>
+        </div>
+      )
+  }
 
 const App = () => {
  const header = 'Give Feedback'
@@ -81,7 +88,7 @@ if(allClicks.length >0){
      <Button name='Good' handleClicks = {handleGoodClicks}/>
      <Button name='Neutral' handleClicks ={handleNeutralClicks}/>
      <Button name='Bad' handleClicks={handleBadClicks}/>     
-     <Statistics good={goodClicks} bad={badClicks} neutral={neutralClicks} scoreCard={scoreCard} totalClicks={allClicks.length} />    
+     <Statistics goodClicks={goodClicks} badClicks={badClicks} neutralClicks={neutralClicks} totalClicks={allClicks.length} scoreCard={scoreCard} />    
     </div>  
   )
   
