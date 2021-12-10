@@ -26,20 +26,33 @@ const App = () => {
   const [goodClicks, setGood] = useState(0)
   const [badClicks, setBad] = useState(0)
   const [neutralClicks, setNeutral] = useState(0)
+  const [allClicks, setAll] = useState([])
 
-  
+  console.log(allClicks)
+
 const handleGoodClicks =() => {
-  setGood(goodClicks+1)
+  setAll(allClicks.concat(1))
+  setGood(goodClicks + 1)
 }
 
 const handleBadClicks =() => {
+  setAll(allClicks.concat(-1))
   setBad(badClicks+1)
 }
 
 const handleNeutralClicks =() => {
   setNeutral(neutralClicks+1)
+  setAll(allClicks.concat(0))
 }
 
+let scoreCard
+if(allClicks.length >0){
+  scoreCard = allClicks.reduce((acc, cur) => acc + cur)
+  console.log(scoreCard)
+}
+
+const totalClicks = allClicks.length
+console.log(totalClicks)
   return (
     <div>
      <Header header= {header}/>
@@ -50,6 +63,9 @@ const handleNeutralClicks =() => {
      <p>Good: {goodClicks}</p>
      <p>Bad: {badClicks}</p>
      <p>Neutral:{neutralClicks}</p>
+     <p>All: {totalClicks}</p>
+     <p>average: {scoreCard/totalClicks}</p>
+     <p>positive: {goodClicks/totalClicks} %</p>
     </div>  
   )
 }
